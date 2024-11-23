@@ -28,6 +28,7 @@ public class Controller {
         int date = inputResponseForDate();
         List<OrderedMenu> orderSheet = inputResponseForOrder();
         EventResult result = eventResultMaker.start(date, orderSheet);
+        outputView.displayEventResult(date, orderSheet, result);
     }
 
     // 날짜 입력

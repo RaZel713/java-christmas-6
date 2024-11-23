@@ -19,11 +19,38 @@ public class EventResult {
         this.badge = selectBadge();
     }
 
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public String getFreebie() {
+        return freebie;
+    }
+
+    public List<String> getAppliedEvents() {
+        return appliedEvents;
+    }
+
+    public int getEventPrice() {
+        return eventPrice;
+    }
+
+    public int getFinalPrice() {
+        return finalPrice;
+    }
+
+    public String getBadge() {
+        return badge;
+    }
+
     private int calculateFinalPrice() {
         return totalPrice - eventPrice;
     }
 
     private int calculateEventPrice(List<Integer> eventPrice) {
+        if (eventPrice.isEmpty()) {
+            return 0;
+        }
         return eventPrice.stream()
                 .mapToInt(Integer::intValue)
                 .sum();

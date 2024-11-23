@@ -1,15 +1,14 @@
 package christmas.custom.view;
 
 public enum DisplayConstants {
-    TITLE("일반 출력 메시지"),
-    ITEM_NAME("%s\t\t\t%d\t\t\t%,d");
-    // "%10s" -  최소 10자리 공간을 할당하며, 부족한 자리는 공백으로 채웁니다. (앞에 공백 출력 뒤에 문자열 출력)
-    // "%05d" -  5자리로 고정하고, 자리가 부족하면 0으로 채웁니다. (앞에 0출력)
-    // %f는 소수점을 포함한 실수를 출력합니다. 기본적으로 소수점 이하 6자리까지 출력
-    // %.2f는 소수점 이하 2자리까지 출력합니다.
-    // %,.2f는 실수를 천 단위 구분 기호와 소수점 이하 2자리까지 출력
-    // %tF	날짜 (yyyy-mm-dd) new java.util.Date() 사용
-    // %tT	시간 (HH:mm:ss)
+    TITLE("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
+    ORDER(" <주문 메뉴>"),
+    TOTAL_PRICE("<할인 전 총주문 금액>"),
+    FREEBIE("<증정 메뉴>"),
+    EVENT("<혜택 내역>"),
+    EVENT_PRICE("<총혜택 금액>"),
+    FINAL_PRICE("<할인 후 예상 결제 금액>"),
+    EVENT_BADGE("<12월 이벤트 배지>");
 
     private final String format;
 
