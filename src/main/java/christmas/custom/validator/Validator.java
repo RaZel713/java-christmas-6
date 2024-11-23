@@ -1,18 +1,18 @@
 package christmas.custom.validator;
 
 import static christmas.custom.common.validation.Validation.checkEmptyInput;
-import static christmas.custom.common.validation.Validation.checkInvalidCharacters;
 import static christmas.custom.common.validation.Validation.checkNullInput;
 import static christmas.custom.common.validation.Validation.checkOutOfRange;
 import static christmas.custom.common.validation.Validation.checkWhitespaceOnlyInput;
 
 import christmas.custom.model.Menu;
 import christmas.custom.model.OrderSheet.OrderedMenu;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Validator {
     public static final String NUMBER_ONLY_PATTERN = "^[0-9]+$"; // 숫자만 있는지
-    public static final String ORDER_FORM_PATTERN = "[가-힣]+-\\d+"; // 제로콜라-1 형식
+    public static final String ORDER_FORM_PATTERN = "[가-힣]+-[0-9]+"; // 제로콜라-1 형식
 
     // 입력 관련 유효성 검사 (공통)
     public static void validateEmptyInput(String input) {
@@ -22,7 +22,9 @@ public class Validator {
     }
 
     public static void validateDate(String input) {
-        checkInvalidCharacters(input, NUMBER_ONLY_PATTERN); // 에러 메시지 수정할 것
+        if (!input.matches(NUMBER_ONLY_PATTERN)) {
+            throw new IllegalArgumentException(CustomErrorMessages.INVALID_DATE.getMessage());
+        }
         checkOutOfRange(Integer.parseInt(input), 1, 31,
                 CustomErrorMessages.INVALID_DATE.getMessage());
     }
@@ -80,15 +82,17 @@ public class Validator {
     }
 
     private static void checkMenuName(OrderedMenu orderedMenu) {
+        List<String> menuNames = new ArrayList<>();
         for (Menu menu : Menu.values()) {
-            if (!orderedMenu.getName().equals(menu.getName())) { // 이름이 같지 않을 때
-                throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
-            }
+            menuNames.add(menu.getName());
+        }
+        if (!menuNames.contains(orderedMenu.getName())) { // 이름이 같지 않을 때
+            throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
         }
     }
 
     private static void checkMenuCount(OrderedMenu orderedMenu) {
-        if (!(orderedMenu.getCount() >= 1)) { // 1 이상의 숫자가 아닐때
+        if (orderedMenu.getCount() < 1) { // 1 이상의 숫자가 아닐때
             throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
         }
     }
