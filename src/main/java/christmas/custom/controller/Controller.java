@@ -1,6 +1,8 @@
 package christmas.custom.controller;
 
+import christmas.custom.model.EventResult;
 import christmas.custom.model.OrderSheet.OrderedMenu;
+import christmas.custom.service.maker.EventResultMaker;
 import christmas.custom.service.parser.DateParser;
 import christmas.custom.service.parser.OrderParser;
 import christmas.custom.view.InputView;
@@ -12,18 +14,20 @@ public class Controller {
     private final OutputView outputView;
     private final DateParser dateParser;
     private final OrderParser orderParser;
+    private final EventResultMaker eventResultMaker;
 
     public Controller(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.dateParser = new DateParser();
         this.orderParser = new OrderParser();
+        this.eventResultMaker = new EventResultMaker();
     }
 
     public void start() {
         int date = inputResponseForDate();
-        List<OrderedMenu> OrderSheet = inputResponseForOrder();
-
+        List<OrderedMenu> orderSheet = inputResponseForOrder();
+        EventResult result = eventResultMaker.start(date, orderSheet);
     }
 
     // 날짜 입력
