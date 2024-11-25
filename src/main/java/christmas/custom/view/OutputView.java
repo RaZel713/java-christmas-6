@@ -16,7 +16,7 @@ public class OutputView {
         System.out.println();
 
         System.out.println(DisplayConstants.TOTAL_PRICE.getFormat());
-        System.out.println(result.getTotalPrice() + "원");
+        System.out.println(String.format("%,d", result.getTotalPrice()) + "원");
         System.out.println();
 
         System.out.println(DisplayConstants.FREEBIE.getFormat());
@@ -30,11 +30,11 @@ public class OutputView {
         System.out.println();
 
         System.out.println(DisplayConstants.EVENT_PRICE.getFormat());
-        System.out.println(result.getEventPrice() + "원");
+        System.out.println(String.format("-%,d", result.getEventPrice()) + "원");
         System.out.println();
 
         System.out.println(DisplayConstants.FINAL_PRICE.getFormat());
-        System.out.println(result.getFinalPrice() + "원");
+        System.out.println(String.format("%,d", result.getFinalPrice()) + "원");
         System.out.println();
 
         System.out.println(DisplayConstants.EVENT_BADGE.getFormat());

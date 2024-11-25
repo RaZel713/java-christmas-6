@@ -66,7 +66,7 @@ public class EventResultMaker {
                         }
                     }
                 }
-                appliedEvents.add(String.format("평일 할인: -%,d원", count));
+                appliedEvents.add(String.format("평일 할인: -%,d원", 2023 * count));
                 eventPrice.add(2023 * count);
             }
             if (starDate.contains(date)) { // 특별 할인 (별)

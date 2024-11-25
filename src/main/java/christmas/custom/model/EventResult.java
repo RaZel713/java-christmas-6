@@ -15,7 +15,7 @@ public class EventResult {
         this.freebie = findFreebie(appliedEvents);
         this.appliedEvents = appliedEvents;
         this.eventPrice = calculateEventPrice(eventPrice);
-        this.finalPrice = calculateFinalPrice();
+        this.finalPrice = calculateFinalPrice(appliedEvents);
         this.badge = selectBadge();
     }
 
@@ -43,7 +43,12 @@ public class EventResult {
         return badge;
     }
 
-    private int calculateFinalPrice() {
+    private int calculateFinalPrice(List<String> appliedEvents) {
+        for (String appliedEvent : appliedEvents) {
+            if (appliedEvent.equals("증정 이벤트: -25,000원")) {
+                return totalPrice - eventPrice + 25000;
+            }
+        }
         return totalPrice - eventPrice;
     }
 
@@ -68,13 +73,13 @@ public class EventResult {
 
     private String selectBadge() {
         if (eventPrice > 20000) {
-            return "별";
+            return "산타";
         }
         if (eventPrice > 10000) {
             return "트리";
         }
         if (eventPrice > 5000) {
-            return "산타";
+            return "별";
         }
         return "없음";
     }
