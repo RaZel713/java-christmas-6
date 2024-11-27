@@ -4,6 +4,11 @@ import static christmas.custom.common.validation.Validation.checkEmptyInput;
 import static christmas.custom.common.validation.Validation.checkNullInput;
 import static christmas.custom.common.validation.Validation.checkOutOfRange;
 import static christmas.custom.common.validation.Validation.checkWhitespaceOnlyInput;
+import static christmas.custom.validator.CustomErrorMessages.EMPTY_STRING_INPUT;
+import static christmas.custom.validator.CustomErrorMessages.INVALID_DATE;
+import static christmas.custom.validator.CustomErrorMessages.INVALID_ORDER;
+import static christmas.custom.validator.CustomErrorMessages.NULL_INPUT;
+import static christmas.custom.validator.CustomErrorMessages.WHITESPACE_ONLY_INPUT;
 
 import christmas.custom.model.Menu;
 import christmas.custom.model.OrderSheet.OrderedMenu;
@@ -16,23 +21,23 @@ public class Validator {
 
     // 입력 관련 유효성 검사 (공통)
     public static void validateEmptyInput(String input) {
-        checkNullInput(input);
-        checkEmptyInput(input);
-        checkWhitespaceOnlyInput(input);
+        checkNullInput(input, NULL_INPUT.getMessage());
+        checkEmptyInput(input, EMPTY_STRING_INPUT.getMessage());
+        checkWhitespaceOnlyInput(input, WHITESPACE_ONLY_INPUT.getMessage());
     }
 
     public static void validateDate(String input) {
         if (!input.matches(NUMBER_ONLY_PATTERN)) {
-            throw new IllegalArgumentException(CustomErrorMessages.INVALID_DATE.getMessage());
+            throw new IllegalArgumentException(INVALID_DATE.getMessage());
         }
         checkOutOfRange(Integer.parseInt(input), 1, 31,
-                CustomErrorMessages.INVALID_DATE.getMessage());
+                INVALID_DATE.getMessage());
     }
 
     public static void validateOrderForm(List<String> input) {
         for (String orderForm : input) {
             if (!orderForm.matches(ORDER_FORM_PATTERN)) {
-                throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
+                throw new IllegalArgumentException(INVALID_ORDER.getMessage());
             }
         }
     }
@@ -51,7 +56,7 @@ public class Validator {
         for (int i = 0; i < orderSheet.size(); i++) {
             for (int j = i + 1; j < orderSheet.size(); j++) {
                 if (orderSheet.get(i).getName().equals(orderSheet.get(j).getName())) {
-                    throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
+                    throw new IllegalArgumentException(INVALID_ORDER.getMessage());
                 }
             }
         }
@@ -63,7 +68,7 @@ public class Validator {
             sum += orderedMenu.getCount();
         }
         if (sum > 20) {
-            throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }
 
@@ -77,7 +82,7 @@ public class Validator {
             }
         }
         if (count == orderSheet.size()) {
-            throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }
 
@@ -87,13 +92,13 @@ public class Validator {
             menuNames.add(menu.getName());
         }
         if (!menuNames.contains(orderedMenu.getName())) { // 이름이 같지 않을 때
-            throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }
 
     private static void checkMenuCount(OrderedMenu orderedMenu) {
         if (orderedMenu.getCount() < 1) { // 1 이상의 숫자가 아닐때
-            throw new IllegalArgumentException(CustomErrorMessages.INVALID_ORDER.getMessage());
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }
 }

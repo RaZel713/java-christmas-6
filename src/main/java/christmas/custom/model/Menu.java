@@ -38,4 +38,31 @@ public enum Menu {
     public int getPrice() {
         return price;
     }
+
+    public static boolean isSortMain(String input) {
+        for (Menu menu : Menu.values()) {
+            if (menu.getSort().equals("메인") && input.equals(menu.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isSortDesert(String input) {
+        for (Menu menu : Menu.values()) {
+            if (menu.getSort().equals("디저트") && input.equals(menu.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int getPriceByName(String input) {
+        for (Menu menu : Menu.values()) {
+            if (input.equals(menu.getName())) {
+                return menu.getPrice();
+            }
+        }
+        return 0;
+    }
 }

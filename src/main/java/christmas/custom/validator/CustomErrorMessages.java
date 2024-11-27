@@ -1,6 +1,12 @@
 package christmas.custom.validator;
 
 public enum CustomErrorMessages {
+    NULL_INPUT("입력이 null 입니다."),
+
+    EMPTY_STRING_INPUT("입력이 빈 문자열입니다."),
+
+    WHITESPACE_ONLY_INPUT("입력이 공백으로만 구성되어 있습니다."),
+
     INVALID_DATE("유효하지 않은 날짜입니다."),
 
     INVALID_ORDER("유효하지 않은 주문입니다.");
